@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    # Render index.html dari folder templates
     return render_template("index.html")
 
 @app.route("/send", methods=["POST"])
@@ -34,14 +35,15 @@ Este mensaje se envió automáticamente.
 
     msg = MIMEText(mensaje)
     msg["Subject"] = f"Nuevo Resultado de Encuesta - Josy Esteban ({nombre})"
-    msg["From"] = email  # Gunakan email pengirim
-    msg["To"] = "anjelikadian@gmail.com"  # Email penerima
+    msg["From"] = email          # From = email pengirim
+    msg["To"] = "anjelikadian@gmail.com"  # Email tujuan menerima hasil
 
+    # Kirim via SMTP Gmail
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login("anjelikadian@gmail.com", "wbqhsfejjkunptuc")  # App Password Gmail
             server.sendmail(
-                email,  # From: email pengirim
+                email,  # From pengirim
                 "anjelikadian@gmail.com",
                 msg.as_string()
             )
