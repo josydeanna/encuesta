@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> HELLO MUCHA ! Encuesta de Fans - Josy Esteban</title>
 
+<style>
+/* Background */
+body {
+  font-family: 'Arial', sans-serif;
+  margin:0; padding:0;
+  background: url('https://media.fastdl.app/get?__sig=bJTWlk693cCQwuUZ7XSoMg&__expires=1764747660&uri=https%3A%2F%2Fscontent-lga3-1.cdninstagram.com%2Fv%2Ft51.2885-15%2F572649069_18538109881000175_6127604561738254672_n.jpg%3Fstp%3Ddst-jpg_e35_p1080x1080_sh0.08_tt6%26_nc_ht%3Dscontent-lga3-1.cdninstagram.com%26_nc_cat%3D111%26_nc_oc%3DQ6cZ2QFdkJr0kbvn8n5MxnyFWeEVCvRJd_j_kQTgU6hhBUj5oZbJe2Pzqp9cZ3StU9OgangjVwnVEtWIIK5ZJAi7IiUk%26_nc_ohc%3D9yeBaQIjE84Q7kNvwEsRjqf%26_nc_gid%3D8f0HPyovWRFpPcHs9raK1Q%26edm%3DANTKIIoBAAAA%26ccb%3D7-5%26oh%3D00_Afnel86O_Y3_2_3Iawt82LzimzhLMONOs8b-B7awcWqHSw%26oe%3D6935B785%26_nc_sid%3Dd885a2&filename=572649069_18538109881000175_6127604561738254672_n.jpg') center/cover no-repeat fixed;
+  position: relative;
+  min-height: 100vh;
+}
+body::before {
+  content:"";
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  backdrop-filter: blur(3px) brightness(0.9);
+  z-index:-1;
+}
+
+/* Container */
+.container {
+  max-width:600px;
+  margin:60px auto;
+  background: rgb(255 255 255 / 70%);
+  padding:35px;
+  border-radius:25px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.3);
+  animation: fadeIn 1s ease-out;
+  z-index:1;
+  position: relative;
+}
+@keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+/* Text & Form */
+h2 { text-align:center; margin-bottom:20px; font-weight:bold; color:#333; }
+label { font-weight:bold; margin-top:18px; display:block; color:#444; }
+.options { margin-left:15px; line-height:1.8; }
+input[type="text"], input[type="email"], textarea {
+  width:100%; padding:12px; margin-top:10px;
+  border-radius:10px; border:1px solid #ccc;
+  background: #fff;
+  color:#333;
+}
+
+/* Button */
+button {
+  margin-top:30px; width:100%; padding:15px;
+  font-size:18px; font-weight:bold; color:white;
+  background:linear-gradient(to right, #ff0066, #cc0099);
+  border:none; border-radius:12px; cursor:pointer; transition:0.3s;
+}
+button:hover { transform: scale(1.04); }
+
+/* Spinner */
+.spinner {
+  display:none;
+  margin:0 auto 15px auto;
+  border:6px solid #eee;
+  border-top:6px solid #ff0066;
+  border-radius:50%;
+  width:45px; height:45px;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Popup */
+#popup {
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%) scale(0.2);
+  background: rgba(0,0,0,0.85);
+  color:white; padding:25px 35px;
+  border-radius:15px; backdrop-filter:blur(10px);
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+  opacity:0; transition:0.3s ease;
+  text-align:center; font-size:18px; z-index:9999;
+}
+#popup.show { opacity:1; transform:translate(-50%,-50%) scale(1); }
+
+/* Dark mode tetap terang */
+@media (prefers-color-scheme: dark) {
+  .container { background: rgba(255,255,255,0.95); color:#333; } 
+  label { color:#444; }
+  textarea, input[type="text"], input[type="email"] { background:#fff; color:#333; border:1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>HELLO MUCHA</h2>
+  <h2>Encuesta para Fans de Josy Esteban</h2>
+
+  <div class="spinner" id="spinner"></div>
+
+  <form id="surveyForm">
+    <label>Nombre del fan:</label>
+    <input type="text" name="nombre" placeholder="Tu nombre..." required>
+
+    <label>Email del fan:</label>
+    <input type="email" name="email" placeholder="Tu email..." required>
+
+    <label>1. ¿Qué tan satisfecho estás con su contenido reciente?</label>
+    <div class="options">
+      <input type="radio" name="satisfaccion" value="Muy satisfecho" required> Muy satisfecho<br>
+      <input type="radio" name="satisfaccion" value="Satisfecho"> Satisfecho<br>
+      <input type="radio" name="satisfaccion" value="Neutral"> Neutral<br>
+      <input type="radio" name="satisfaccion" value="Poco satisfecho"> Poco satisfecho
+    </div>
+
+    <label>2. ¿Qué tipo de contenido te gusta más?</label>
+    <div class="options">
+      <input type="radio" name="favorito" value="Vlogs" required> Vlogs<br>
+      <input type="radio" name="favorito" value="Contenido divertido"> Contenido divertido<br>
+      <input type="radio" name="favorito" value="Bailes/TikTok"> Bailes / TikTok<br>
+      <input type="radio" name="favorito" value="Fotos/Estilo"> Fotos / Estilo
+    </div>
+
+    <label>3. Comentario o sugerencia para Josy Esteban:</label>
+    <textarea name="comentario" rows="4" placeholder="Escribe tu sugerencia aquí..."></textarea>
+
+    <button id="submitBtn" type="submit">Enviar Encuesta</button>
+  </form>
+</div>
+
+<div id="popup">
+  <h3>✨ Gracias, <span id="fanName"></span>! Tu respuesta fue enviada. ✨</h3>
+  <p>📧 Email: <span id="fanEmail"></span></p>
+  <p>✅ Satisfacción: <span id="fanSatisfaccion"></span></p>
+  <p>✅ Contenido favorito: <span id="fanFavorito"></span></p>
+  <p>💬 Comentario: <span id="fanComentario"></span></p>
+</div>
+
+<script>
+document.getElementById("surveyForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const btn = document.getElementById("submitBtn");
+  const spinner = document.getElementById("spinner");
+  const popup = document.getElementById("popup");
+
+  const fanName = document.getElementById("fanName");
+  const fanEmail = document.getElementById("fanEmail");
+  const fanSatisfaccion = document.getElementById("fanSatisfaccion");
+  const fanFavorito = document.getElementById("fanFavorito");
+  const fanComentario = document.getElementById("fanComentario");
+
+  btn.innerText = "Enviando...";
+  btn.style.opacity="0.6";
+  btn.style.pointerEvents="none";
+  spinner.style.display="block";
+
+  const formData = new FormData(this);
+
+  try {
+    await fetch("/send", { method:"POST", body:formData });
+  } catch(err) {
+    alert("Error al enviar: " + err);
+  }
+
+  spinner.style.display="none";
+  btn.innerText="Enviar Encuesta";
+  btn.style.opacity="1";
+  btn.style.pointerEvents="auto";
+
+  fanName.innerText = formData.get("nombre");
+  fanEmail.innerText = formData.get("email");
+  fanSatisfaccion.innerText = formData.get("satisfaccion");
+  fanFavorito.innerText = formData.get("favorito");
+  fanComentario.innerText = formData.get("comentario") || "Sin comentario";
+
+  this.reset();
+
+  popup.classList.add("show");
+  setTimeout(()=> popup.classList.remove("show"), 5000);
+});
+</script>
+
+</body>
+</html>
