@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
 import smtplib
 from email.mime.text import MIMEText
+import os  # untuk membaca environment variables
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    # Render index.html dari folder templates
     return render_template("index.html")
 
 @app.route("/send", methods=["POST"])
@@ -35,16 +35,22 @@ Este mensaje se envió automáticamente.
 
     msg = MIMEText(mensaje)
     msg["Subject"] = f"Nuevo Resultado de Encuesta - Josy Esteban ({nombre})"
-    msg["From"] = email          # From = email pengirim
-    msg["To"] = "anjelikadian@gmail.com"  # Email tujuan menerima hasil
+    msg["From"] = email  # From = email pengirim
+    msg["To"] = os.environ.get("GMAIL_USER")  # Email tujuan dari environment variable
 
     # Kirim via SMTP Gmail
     try:
+        gmail_user = os.environ.get("GMAIL_USER")
+        gmail_app_password = os.environ.get("GMAIL_APP_PASSWORD")
+
+        if not gmail_user or not gmail_app_password:
+            return "Error: Gmail credentials not set in environment variables."
+
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-            server.login("anjelikadian@gmail.com", "wbqhsfejjkunptuc")  # App Password Gmail
+            server.login(gmail_user, gmail_app_password)
             server.sendmail(
-                email,  # From pengirim
-                "anjelikadian@gmail.com",
+                email,
+                gmail_user,
                 msg.as_string()
             )
         return "OK"  # Frontend popup bisa membaca
