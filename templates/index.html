@@ -80,6 +80,25 @@ button:hover { transform: scale(1.04); }
   text-align:center; font-size:18px; z-index:9999;
 }
 #popup.show { opacity:1; transform:translate(-50%,-50%) scale(1); }
+.redirect-btn {
+  display:block;
+  margin-top:15px;
+  padding:15px;
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
+  color:white;
+  text-decoration:none;
+  background:linear-gradient(to right, #0099ff, #0066ff);
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.redirect-btn:hover {
+  transform: scale(1.04);
+}
 
 /* Dark mode tetap terang */
 @media (prefers-color-scheme: dark) {
@@ -136,6 +155,8 @@ button:hover { transform: scale(1.04); }
     <textarea name="comentario" rows="4" placeholder="Escribe tu sugerencia aquí..."></textarea>
 
     <button id="submitBtn" type="submit">Enviar Encuesta</button>
+    <!-- Tombol Redirect -->
+<a href="https://www.effectivegatecpm.com/he5kpxh0e?key=c9a98099ba675809fec03360c365f144" class="redirect-btn">Ir al Video</a>
   </form>
 </div>
 
